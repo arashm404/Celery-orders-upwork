@@ -1,0 +1,15 @@
+# Ignore macOS-specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon and metadata files
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# macOS specific directories
+**/.AppleDouble/
+**/._*
+**/Thumbs.db
+**/ehthumbs.db
