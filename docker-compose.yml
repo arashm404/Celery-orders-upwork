@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    volumes:
+      - pgsql_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=testdb
+    expose: 
+      - 5432
+    
+  redis:
+    image: redis:7.0
+    expose:
+      - 6379
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.celery  # Assuming you have a separate Dockerfile for Celery
+    command: celery -A orders worker --loglevel=info
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - .:/code
+
+volumes:
+  pgsql_data:
