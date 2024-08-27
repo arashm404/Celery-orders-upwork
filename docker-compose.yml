@@ -26,6 +26,7 @@ services:
       - 6379
 
   celery_worker:
+    name : 'celery_worker'
     build:
       context: .
       dockerfile: Dockerfile.celery  # Assuming you have a separate Dockerfile for Celery
